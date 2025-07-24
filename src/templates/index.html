@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF API Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📄 PDF API Project</h1>
+            <p>Upload PDFs, Query Content with AI, and Manage Documents</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/upload">Upload PDF</a></li>
+                <li><a href="/query">Query Documents</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="welcome-section">
+                <h2>Welcome to PDF API</h2>
+                <p>This application allows you to:</p>
+                <ul class="features-list">
+                    <li>📤 Upload PDF files</li>
+                    <li>🔍 Extract and search content</li>
+                    <li>🤖 Query documents using AI</li>
+                    <li>📊 Manage your document library</li>
+                </ul>
+            </div>
+
+            <div class="stats-section">
+                <h3>Document Statistics</h3>
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <h4>Total Documents</h4>
+                        <span id="totalDocs">0</span>
+                    </div>
+                    <div class="stat-card">
+                        <h4>Total Size</h4>
+                        <span id="totalSize">0 MB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="recent-documents">
+                <h3>Recent Documents</h3>
+                <div id="recentDocs">
+                    <p>Loading recent documents...</p>
+                </div>
+            </div>
+
+            <div class="quick-actions">
+                <h3>Quick Actions</h3>
+                <div class="action-buttons">
+                    <a href="/upload" class="btn btn-primary">Upload New PDF</a>
+                    <a href="/query" class="btn btn-secondary">Query Documents</a>
+                    <button onclick="refreshStats()" class="btn btn-outline">Refresh Stats</button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 PDF API Project. Built with Flask and AI.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        // Load initial data when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadStats();
+            loadRecentDocuments();
+        });
+    </script>
+</body>
+</html>

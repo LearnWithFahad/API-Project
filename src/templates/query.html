@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Documents - PDF API Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 Query Documents</h1>
+            <p>Ask questions about your uploaded documents using AI</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upload">Upload PDF</a></li>
+                <li><a href="/query" class="active">Query Documents</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="query-section">
+                <div class="document-selector">
+                    <label for="documentSelect">Select Document (optional)</label>
+                    <select id="documentSelect">
+                        <option value="">Query All Documents</option>
+                    </select>
+                </div>
+
+                <form id="queryForm" class="query-form">
+                    <div class="form-group">
+                        <label for="queryInput">Your Question</label>
+                        <textarea id="queryInput" name="query" rows="3" 
+                                placeholder="Ask a question about your documents..." required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="queryBtn">
+                        Ask AI
+                    </button>
+                </form>
+
+                <div class="query-suggestions">
+                    <h4>Suggested Questions:</h4>
+                    <div class="suggestion-buttons" id="suggestions">
+                        <button class="suggestion-btn" onclick="setQuery('What is the main topic of this document?')">
+                            What is the main topic?
+                        </button>
+                        <button class="suggestion-btn" onclick="setQuery('Summarize the key points')">
+                            Summarize key points
+                        </button>
+                        <button class="suggestion-btn" onclick="setQuery('What are the important dates mentioned?')">
+                            Important dates
+                        </button>
+                        <button class="suggestion-btn" onclick="setQuery('List the main concepts discussed')">
+                            Main concepts
+                        </button>
+                    </div>
+                </div>
+
+                <div id="queryResult" class="query-result" style="display: none;">
+                    <h3>AI Response</h3>
+                    <div id="responseText"></div>
+                    <div class="result-meta">
+                        <small id="resultMeta"></small>
+                    </div>
+                </div>
+
+                <div id="queryLoading" class="query-loading" style="display: none;">
+                    <div class="loading-spinner"></div>
+                    <p>AI is analyzing your documents...</p>
+                </div>
+            </div>
+
+            <div class="query-history">
+                <div class="query-history-header">
+                    <h3>Query History</h3>
+                    <button id="clearHistoryBtn" class="btn btn-secondary btn-small" onclick="clearQueryHistory()" style="display: none;">
+                        🗑️ Clear History
+                    </button>
+                </div>
+                <div id="queryHistory">
+                    <p>No queries yet. Ask your first question!</p>
+                </div>
+            </div>
+
+            <div class="document-list">
+                <h3>Available Documents</h3>
+                <div id="documentList">
+                    <p>Loading documents...</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 PDF API Project. Built with Flask and AI.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setupQueryForm();
+            loadDocuments();
+            loadQueryHistory();
+        });
+
+        function setQuery(text) {
+            document.getElementById('queryInput').value = text;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PDF - PDF API Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📤 Upload PDF</h1>
+            <p>Upload your PDF files to start querying with AI</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/upload" class="active">Upload PDF</a></li>
+                <li><a href="/query">Query Documents</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <div class="upload-section">
+                <form id="uploadForm" class="upload-form" enctype="multipart/form-data">
+                    <div class="file-input-wrapper">
+                        <input type="file" id="fileInput" name="file" accept=".pdf" required>
+                        <label for="fileInput" class="file-input-label">
+                            <div class="file-icon">📄</div>
+                            <span>Choose PDF File</span>
+                        </label>
+                        <div id="fileName" class="file-name"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description (Optional)</label>
+                        <textarea id="description" name="description" rows="3" 
+                                placeholder="Enter a description for this document..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tags">Tags (Optional)</label>
+                        <input type="text" id="tags" name="tags" 
+                               placeholder="Enter tags separated by commas (e.g., report, 2025, analysis)">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="uploadBtn">
+                        Upload PDF
+                    </button>
+                </form>
+
+                <div id="uploadProgress" class="upload-progress" style="display: none;">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <p id="progressText">Uploading...</p>
+                </div>
+
+                <div id="uploadResult" class="upload-result" style="display: none;"></div>
+            </div>
+
+            <div class="upload-tips">
+                <h3>Upload Tips</h3>
+                <ul>
+                    <li>Only PDF files are supported</li>
+                    <li>Maximum file size: 16MB</li>
+                    <li>Text will be automatically extracted for AI querying</li>
+                    <li>Add descriptive tags to make documents easier to find</li>
+                    <li>Descriptions help provide context for AI queries</li>
+                </ul>
+            </div>
+
+            <div class="recent-uploads">
+                <h3>Recent Uploads</h3>
+                <div id="recentUploads">
+                    <p>Loading recent uploads...</p>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 PDF API Project. Built with Flask and AI.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            setupUploadForm();
+            loadRecentDocuments();
+        });
+    </script>
+</body>
+</html>
